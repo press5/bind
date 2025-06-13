@@ -1,21 +1,6 @@
 # bind
 
-[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg?style=flat)](https://raw.githubusercontent.com/saucelabs-ansible/bind/master/LICENSE)
-[![Build Status](https://travis-ci.org/saucelabs-ansible/bind.svg?branch=master)](https://travis-ci.org/saucelabs-ansible/bind)
-
-[![Platform](http://img.shields.io/badge/platform-ubuntu-dd4814.svg?style=flat)](#)
-
-[![Project Stats](https://www.openhub.net/p/saucelabs-ansible-bind/widgets/project_thin_badge.gif)](https://www.openhub.net/p/saucelabs-ansible-bind/)
-
 Ansible role to setup [BIND (Berkley Internet Naming Daemon)](https://www.isc.org/downloads/bind/).
-
-
-## Tests
-
-| Family | Distribution | Version | Test Status |
-|:-:|:-:|:-:|:-:|
-| Debian | Ubuntu  | Precise | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
-| Debian | Ubuntu  | Trusty  | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
 
 
 ## Requirements
