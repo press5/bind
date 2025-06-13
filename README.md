@@ -101,8 +101,8 @@ Example:
             update: update_debug
             update-security: update_debug
             security: security_info
-  
-        bind_local_includes: 
+
+        bind_local_includes:
           - /etc/bind/named.local.includes
 
         bind_zones:
@@ -189,5 +189,6 @@ BSD
 
 ## Author Information
 
+- [press5](https://github.com/press5/)
 - [esacteksab](https://github.com/esacteksab/)
 - [steenzout](https://github.com/steenzout/)

@@ -5,7 +5,7 @@
 #
 
 - name: installation | ensure bind9 and dnsutils are installed
-  apt:
+  ansible.builtin.apt:
     name="{{ item }}"
     state=present
   with_items:
@@ -13,7 +13,7 @@
     - dnsutils
 
 - name: installation | ensure log directory is present
-  file:
+  ansible.builtin.file:
     path="{{ bind_dir_log }}"
     state=directory
     owner=bind
