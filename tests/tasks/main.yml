@@ -4,25 +4,25 @@
 # Test tasks to verify role execution.
 #
 
-- include: installation.yml
+- ansible.builtin.include_tasks: installation.yml
   tags: installation
 
-- include: configuration.yml
+- ansible.builtin.include_tasks: configuration.yml
   tags: configuration
 
 - name: test syntax of configuration files
-  shell: named-checkconf -z
-  changed_when: no
+  ansible.builtin.shell: named-checkconf -z
+  changed_when: false
   tags: configuration
 
 - name: test syntax of example.com configuration file
-  shell: named-checkzone -i full example.com /var/cache/bind/db.example.com.zone
-  changed_when: no
+  ansible.builtin.shell: named-checkzone -i full example.com /var/cache/bind/db.example.com.zone
+  changed_when: false
   tags: configuration
 
 - name: test if bind9 process is running
-  shell: service bind9 status
-  sudo: yes
+  ansible.builtin.shell: systemctl is-active bind9
+  become: true
   register: test
-  changed_when: no
-  failed_when: test.stdout.find('bind9 is running') == -1
+  changed_when: false
+  failed_when: test.stdout != 'active'

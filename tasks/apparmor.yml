@@ -6,18 +6,20 @@
 
 - name: apparmor | ensure cache directory is present in the apparmor configuration
   ansible.builtin.lineinfile:
-    dest=/etc/apparmor.d/usr.sbin.named
-    line="  {{ item }},"
-    insertbefore='}'
-  with_items:
+    dest: /etc/apparmor.d/usr.sbin.named
+    line: "  {{ item }},"
+    insertbefore: '}'
+  loop:
     - "{{ bind_dir_cache }}/** lrw"
     - "{{ bind_dir_cache }}/ rw"
+  become: true
 
 - name: apparmor | ensure log directory is present in the apparmor configuration
   ansible.builtin.lineinfile:
-    dest=/etc/apparmor.d/usr.sbin.named
-    line="  {{ item }} rw,"
-    insertbefore='}'
-  with_items:
+    dest: /etc/apparmor.d/usr.sbin.named
+    line: "  {{ item }} rw,"
+    insertbefore: '}'
+  loop:
     - "{{ bind_dir_log }}/**"
     - "{{ bind_dir_log }}/"
+  become: true

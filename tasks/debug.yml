@@ -4,10 +4,11 @@
 # debug tasks.
 #
 
-- ansible.builtin.debug:
-    var="{{ item }}"
-  when: "{{ item }} is defined"
-  with_items:
+- name: debug | display variable values
+  ansible.builtin.debug:
+    var: "{{ item }}"
+  when: vars[item] is defined
+  loop:
     - bind_default_resolvconf
     - bind_default_options
     - bind_named_conf_acl

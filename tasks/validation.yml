@@ -4,19 +4,21 @@
 # validation tasks.
 #
 
-- ansible.builtin.fail:
-    msg="only Ubuntu is supported"
+- name: validation | ensure only Ubuntu is supported
+  ansible.builtin.fail:
+    msg: "only Ubuntu is supported"
   when: ansible_distribution != 'Ubuntu'
 
-- ansible.builtin.fail:
-    msg="only Ubuntu >= 12.04 is supported"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('10.04', '<=')
+- name: validation | ensure only Ubuntu >= 12.04 is supported
+  ansible.builtin.fail:
+    msg: "only Ubuntu >= 12.04 is supported"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('10.04', '<=')
 
 - name: ensure mandatory variables are set
   ansible.builtin.fail:
-    msg="{{ item }} is a mandatory variable"
-  when: "{{ item }} is not defined"
-  with_items:
+    msg: "{{ item }} is a mandatory variable"
+  when: vars[item] is not defined
+  loop:
     - bind_default_resolvconf
     - bind_default_options
     - bind_named_conf_options

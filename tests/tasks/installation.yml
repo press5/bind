@@ -4,12 +4,11 @@
 # test installation tasks.
 #
 
-
 - name: installation | test if bind9 and dnsutils package installed?
-  shell: "dpkg-query -W -f='${Status}\n' {{ item }}"
+  ansible.builtin.shell: "dpkg-query -W -f='${Status}\n' {{ item }}"
   register: test
-  changed_when: no
+  changed_when: false
   failed_when: test.stdout.find('install ok installed') == -1
-  with_items:
+  loop:
     - bind9
     - dnsutils

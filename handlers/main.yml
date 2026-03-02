@@ -6,24 +6,24 @@
 
 - name: reload bind9
   ansible.builtin.service:
-    name=bind9
-    state=reloaded
-  sudo: yes
+    name: bind9
+    state: reloaded
+  become: true
 
 - name: restart bind9
   ansible.builtin.service:
-    name=bind9
-    state=restarted
-  sudo: yes
+    name: bind9
+    state: restarted
+  become: true
 
 - name: start bind9
   ansible.builtin.service:
-    name=bind9
-    state=started
-  sudo: yes
+    name: bind9
+    state: started
+  become: true
 
 - name: stop bind9
   ansible.builtin.service:
-    name=bind9
-    state=stopped
-  sudo: yes
+    name: bind9
+    state: stopped
+  become: true

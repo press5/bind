@@ -5,17 +5,19 @@
 #
 
 - name: apparmor | test if /etc/apparmor.d/usr.sbin.named file is present?
-  shell: test -e /etc/apparmor.d/usr.sbin.named
-  changed_when: no
+  ansible.builtin.shell: test -e /etc/apparmor.d/usr.sbin.named
+  changed_when: false
 
 - name: apparmor | ensure cache directory is present in the apparmor configuration
-  shell: "grep '^  {{item}},$' /etc/apparmor.d/usr.sbin.named"
-  with_items:
+  ansible.builtin.shell: "grep '^  {{ item }},$' /etc/apparmor.d/usr.sbin.named"
+  loop:
     - "{{ bind_dir_cache }}/** lrw"
     - "{{ bind_dir_cache }}/ rw"
+  changed_when: false
 
 - name: apparmor | ensure log directory is present in the apparmor configuration
-  shell: "grep '^  {{item}},$' /etc/apparmor.d/usr.sbin.named"
-  with_items:
+  ansible.builtin.shell: "grep '^  {{ item }},$' /etc/apparmor.d/usr.sbin.named"
+  loop:
     - "{{ bind_dir_log }}/** rw"
     - "{{ bind_dir_log }}/ rw"
+  changed_when: false

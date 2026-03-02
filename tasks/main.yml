@@ -13,12 +13,9 @@
 
 - ansible.builtin.include_tasks: installation.yml
   tags: installation
-  sudo: yes
 
 - ansible.builtin.include_tasks: configuration.yml
   tags: configuration
-  sudo: yes
 
 - ansible.builtin.include_tasks: apparmor.yml
   tags: apparmor
-  sudo: yes

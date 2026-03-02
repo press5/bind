@@ -5,21 +5,21 @@
 #
 
 - name: configuration | test if /etc/default/bind9 file is present?
-  shell: test -e /etc/default/bind9
-  changed_when: no
+  ansible.builtin.shell: test -e /etc/default/bind9
+  changed_when: false
 
 - name: configuration | test if /etc/default/bind9 contains content?
-  shell: grep '^RESOLVCONF=no$' /etc/default/bind9
-  changed_when: no
+  ansible.builtin.shell: grep '^RESOLVCONF=no$' /etc/default/bind9
+  changed_when: false
 
 - name: configuration | test if /etc/default/bind9 contains line?
-  shell: "grep '^OPTIONS=\"{{ bind_default_options }}\"$' /etc/default/bind9"
-  changed_when: no
+  ansible.builtin.shell: "grep '^OPTIONS=\"{{ bind_default_options }}\"$' /etc/default/bind9"
+  changed_when: false
 
 - name: configuration | test if /etc/bind/named.conf.* files are present?
-  shell: "test -e /etc/bind/named.conf{{ item }}"
-  changed_when: no
-  with_items:
+  ansible.builtin.shell: "test -e /etc/bind/named.conf{{ item }}"
+  changed_when: false
+  loop:
     - ''
     - '.acl'
     - '.controls'
@@ -29,12 +29,12 @@
     - '.options'
 
 - name: configuration | copy bind configuration test resources
-  copy:
-    src="tmp/named.conf{{ item }}.expected"
-    dest="/tmp/named.conf{{ item }}.expected"
-  sudo: yes
-  changed_when: no
-  with_items:
+  ansible.builtin.copy:
+    src: "tmp/named.conf{{ item }}.expected"
+    dest: "/tmp/named.conf{{ item }}.expected"
+  become: true
+  changed_when: false
+  loop:
     - ''
     - '.acl'
     - '.controls'
@@ -44,9 +44,9 @@
     - '.options'
 
 - name: configuration | test named.conf template generation
-  shell: "diff -w /etc/bind/named.conf{{ item }} /tmp/named.conf{{ item }}.expected"
-  changed_when: no
-  with_items:
+  ansible.builtin.shell: "diff -w /etc/bind/named.conf{{ item }} /tmp/named.conf{{ item }}.expected"
+  changed_when: false
+  loop:
     - ''
     - '.acl'
     - '.controls'
@@ -56,23 +56,22 @@
     - '.options'
 
 - name: configuration | test if /var/cache/bind/db.example.com.zone exists
-  shell: "test -e {{ bind_dir_cache }}/db.{{ item }}.zone"
-  changed_when: no
-  with_items:
+  ansible.builtin.shell: "test -e {{ bind_dir_cache }}/db.{{ item }}.zone"
+  changed_when: false
+  loop:
     - 'example.com'
 
 - name: configuration | copy zone database test resources
-  copy:
-    src="tmp/db.{{ item }}.zone.expected"
-    dest="/tmp/db.{{ item }}.zone.expected"
-  sudo: yes
-  changed_when: no
-  with_items:
+  ansible.builtin.copy:
+    src: "tmp/db.{{ item }}.zone.expected"
+    dest: "/tmp/db.{{ item }}.zone.expected"
+  become: true
+  changed_when: false
+  loop:
     - 'example.com'
 
-
 - name: configuration | test bind zone database file generation
-  shell: "diff -w {{ bind_dir_cache }}/db.{{ item }}.zone /tmp/db.{{ item }}.zone.expected"
-  changed_when: no
-  with_items:
+  ansible.builtin.shell: "diff -w {{ bind_dir_cache }}/db.{{ item }}.zone /tmp/db.{{ item }}.zone.expected"
+  changed_when: false
+  loop:
     - 'example.com'
